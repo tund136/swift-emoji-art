@@ -12,6 +12,7 @@
 		AD34B9A026FABA5600969E49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD34B99F26FABA5600969E49 /* Assets.xcassets */; };
 		AD34B9A326FABA5600969E49 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD34B9A226FABA5600969E49 /* Preview Assets.xcassets */; };
 		AD34B9AB26FABA9300969E49 /* EmojiArtModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9AA26FABA9300969E49 /* EmojiArtModel.swift */; };
+		AD34B9AD26FB2B1100969E49 /* EmojiArtModel.Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9AC26FB2B1100969E49 /* EmojiArtModel.Background.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		AD34B9A226FABA5600969E49 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD34B9A426FABA5600969E49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD34B9AA26FABA9300969E49 /* EmojiArtModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtModel.swift; sourceTree = "<group>"; };
+		AD34B9AC26FB2B1100969E49 /* EmojiArtModel.Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtModel.Background.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				AD34B99B26FABA5500969E49 /* EmojiArtApp.swift */,
 				AD34B99D26FABA5500969E49 /* ContentView.swift */,
 				AD34B9AA26FABA9300969E49 /* EmojiArtModel.swift */,
+				AD34B9AC26FB2B1100969E49 /* EmojiArtModel.Background.swift */,
 				AD34B99F26FABA5600969E49 /* Assets.xcassets */,
 				AD34B9A426FABA5600969E49 /* Info.plist */,
 				AD34B9A126FABA5600969E49 /* Preview Content */,
@@ -144,6 +147,7 @@
 				AD34B99E26FABA5500969E49 /* ContentView.swift in Sources */,
 				AD34B99C26FABA5500969E49 /* EmojiArtApp.swift in Sources */,
 				AD34B9AB26FABA9300969E49 /* EmojiArtModel.swift in Sources */,
+				AD34B9AD26FB2B1100969E49 /* EmojiArtModel.Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
