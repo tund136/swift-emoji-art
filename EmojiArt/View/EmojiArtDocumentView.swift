@@ -30,9 +30,31 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .onDrop(of: [.plainText], isTargeted: nil) { providers, location in
-                return false
+                return drop(providers: providers, at: location, in: geometry)
             }
         }
+    }
+    
+    private func drop(providers: [NSItemProvider], at location: CGPoint, in geometry: GeometryProxy) -> Bool {
+        return providers.loadObjects(ofType: String.self) { string in
+            if let emoji  = string.first, emoji.isEmoji {
+                document.addEmoji(
+                    String(emoji),
+                    at: convertToEmojiCoordinates(location, in: geometry),
+                    size: defaultEmojiFontSize
+                )
+            }
+        }
+    }
+    
+    private func convertToEmojiCoordinates(_ location: CGPoint, in geometry: GeometryProxy) -> (x: Int, y: Int) {
+        let center = geometry.frame(in: .global).center
+        let location = CGPoint(
+            x: location.x - center.x,
+            y: location.y - center.y
+        )
+        
+        return (Int(location.x), Int(location.y))
     }
     
     private func position(for emoji: EmojiArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
