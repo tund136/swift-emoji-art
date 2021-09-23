@@ -27,10 +27,18 @@ struct EmojiArtDocumentView: View {
                     OptionalImage(uiImage: document.backgroundImage)
                         .position(convertFromEmojiCoordinates((0, 0), in: geometry))
                 )
-                ForEach(document.emojis) { emoji in
-                    Text(emoji.text)
-                        .font(.system(size: fontSize(for: emoji)))
-                        .position(position(for: emoji, in: geometry))
+                if document.backgroundImageFetchStatus == .fetching {
+                    // ProgressView is built into SwiftUI
+                    // When you just use it with no arguments, it makes a little spinning wheel
+                    // But it can be used for a lot of different progress-measuring
+                    // Loading of files and all kinds of things
+                    ProgressView()
+                } else {
+                    ForEach(document.emojis) { emoji in
+                        Text(emoji.text)
+                            .font(.system(size: fontSize(for: emoji)))
+                            .position(position(for: emoji, in: geometry))
+                    }
                 }
             }
             .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in

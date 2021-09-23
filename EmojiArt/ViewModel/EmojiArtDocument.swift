@@ -29,13 +29,19 @@ class EmojiArtDocument: ObservableObject {
     var background: EmojiArtModel.Background { emojiArt.background }
     
     @Published var backgroundImage: UIImage?
+    @Published var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
+    
+    enum BackgroundImageFetchStatus {
+        case idle
+        case fetching
+    }
     
     private func fetchBackgroundImageDataIfNecessary() {
         backgroundImage = nil
         switch emojiArt.background {
         case .url(let url):
             // fetch the url
-            
+            backgroundImageFetchStatus = .fetching
             // This took a very long time
             // Something that for it to download
             // and meanwhile, our app was completely forzen. We couldn't try another one. We can't do anything.
@@ -48,6 +54,7 @@ class EmojiArtDocument: ObservableObject {
                 
                 DispatchQueue.main.async { [weak self] in
                     if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
+                        self?.backgroundImageFetchStatus = .idle
                         if imageData != nil {
                             // A purple error
                             // This is changing the UI
