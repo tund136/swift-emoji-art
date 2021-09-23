@@ -14,8 +14,8 @@ struct EmojiArtModel {
     struct Emoji: Identifiable, Hashable {
         let id: Int
         let text: String
-        var x: Int
-        var y: Int
+        var x: Int // Offset from the center
+        var y: Int // Offset from the center
         var size: Int
         
         // fileprivate means anyone in this file can use this, but no one else

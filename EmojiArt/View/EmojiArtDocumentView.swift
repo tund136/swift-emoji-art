@@ -10,6 +10,8 @@ import SwiftUI
 struct EmojiArtDocumentView: View {
     @ObservedObject var document: EmojiArtDocument
     
+    let defaultEmojiFontSize: CGFloat = 40
+    
     var body: some View {
         VStack(spacing: 0) {
             documentBody
@@ -18,11 +20,37 @@ struct EmojiArtDocumentView: View {
     }
     
     var documentBody: some View {
-        Color.yellow
+        GeometryReader { geometry in
+            ZStack {
+                Color.yellow.ignoresSafeArea()
+                ForEach(document.emojis) { emoji in
+                    Text(emoji.text)
+                        .font(.system(size: fontSize(for: emoji)))
+                        .position(position(for: emoji, in: geometry))
+                }
+            }
+        }
+    }
+    
+    private func position(for emoji: EmojiArtModel.Emoji, in geometry: GeometryProxy) -> CGPoint {
+        convertFromEmojiCoordinates((emoji.x, emoji.y), in: geometry)
+    }
+    
+    private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
+        let center = geometry.frame(in: .global).center
+        return CGPoint(
+            x: center.x + CGFloat(location.x),
+            y: center.y + CGFloat(location.y)
+        )
+    }
+    
+    private func fontSize(for emoji: EmojiArtModel.Emoji) -> CGFloat {
+        CGFloat(emoji.size)
     }
     
     var palette: some View {
         ScrollingEmojisView(emojis: testEmojis)
+            .font(.system(size: defaultEmojiFontSize))
     }
     
     let testEmojis = "🐼🚣☘️⛷✈️🥋🐹🦋🛵🚐🚜🚑🏎🎱🪀🥅🪃🛷🇦🇹📞🎛📠💿🖲🖤🍈🍌🍎🍅🥭🍑🫒🥔🌽🧅"
