@@ -45,6 +45,9 @@ struct EmojiArtDocumentView: View {
                     }
                 }
             }
+            // If you put .clipped on a View, it says "Stay inside your space".
+            // Don't go outside the rectangle that you chose for yourself during the layout process.
+            .clipped()
             .onDrop(of: [.plainText, .url, .image], isTargeted: nil) { providers, location in
                 drop(providers: providers, at: location, in: geometry)
             }
