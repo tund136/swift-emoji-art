@@ -10,7 +10,13 @@ import SwiftUI
 class EmojiArtDocument: ObservableObject {
     // private(set) should be good enough here.
     // People can access the emojis and look at the background
-    @Published private(set) var emojiArt: EmojiArtModel
+    @Published private(set) var emojiArt: EmojiArtModel {
+        didSet {
+            if emojiArt.background != oldValue.background {
+                fetchBackgroundImageDataIfNecessary()
+            }
+        }
+    }
     
     
     init() {
@@ -21,6 +27,24 @@ class EmojiArtDocument: ObservableObject {
     
     var emojis: [EmojiArtModel.Emoji] { emojiArt.emojis }
     var background: EmojiArtModel.Background { emojiArt.background }
+    
+    @Published var backgroundImage: UIImage?
+    
+    private func fetchBackgroundImageDataIfNecessary() {
+        backgroundImage = nil
+        switch emojiArt.background {
+        case .url(let url):
+            // fetch the url
+            let imageData = try? Data(contentsOf: url) // There is a way to ignore the error
+            if imageData != nil {
+                backgroundImage = UIImage(data: imageData!) // Which we can force unwrap because I just checked to make sure it's not nil right there.
+            }
+        case .imageData(let data):
+            backgroundImage = UIImage(data: data)
+        case .blank:
+            break
+        }
+    }
     
     // MARK: - Intent(s)
     
