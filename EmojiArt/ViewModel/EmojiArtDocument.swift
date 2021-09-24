@@ -12,10 +12,19 @@ class EmojiArtDocument: ObservableObject {
     // People can access the emojis and look at the background
     @Published private(set) var emojiArt: EmojiArtModel {
         didSet {
-            autoSave()
+            scheduleAutoSave()
             if emojiArt.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
             }
+        }
+    }
+    
+    private var autoSaveTimer: Timer?
+    
+    private func scheduleAutoSave() {
+        autoSaveTimer?.invalidate()
+        autoSaveTimer = Timer.scheduledTimer(withTimeInterval: AutoSave.coalescingInterval, repeats: false) { _ in
+            self.autoSave()
         }
     }
     
@@ -28,6 +37,7 @@ class EmojiArtDocument: ObservableObject {
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             return documentDirectory?.appendingPathComponent(fileName)
         }
+        static let coalescingInterval = 5.0
     }
     
     private func autoSave() {
