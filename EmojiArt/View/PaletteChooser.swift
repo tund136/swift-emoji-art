@@ -22,7 +22,7 @@ struct PaletteChooser: View {
             paletteControlButton
             body(for: palette)
         }
-        
+        .clipped()
     }
     
     var paletteControlButton: some View {
