@@ -27,7 +27,9 @@ struct PaletteChooser: View {
     
     var paletteControlButton: some View {
         Button {
-            chosenPaletteIndex = (chosenPaletteIndex + 1) % store.palettes.count
+            withAnimation {
+                chosenPaletteIndex = (chosenPaletteIndex + 1) % store.palettes.count
+            }
         } label: {
             Image(systemName: "paintpalette")
         }
@@ -40,6 +42,12 @@ struct PaletteChooser: View {
             ScrollingEmojisView(emojis: palette.emojis)
                 .font(emojiFont)
         }
+        .id(palette.id)
+        .transition(rollTransition)
+    }
+    
+    var rollTransition: AnyTransition {
+        AnyTransition.asymmetric(insertion: .offset(x: 0, y: emojiFontSize), removal: .offset(x: 0, y: -emojiFontSize))
     }
 }
 
