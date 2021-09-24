@@ -12,9 +12,27 @@ class EmojiArtDocument: ObservableObject {
     // People can access the emojis and look at the background
     @Published private(set) var emojiArt: EmojiArtModel {
         didSet {
+            autoSave()
             if emojiArt.background != oldValue.background {
                 fetchBackgroundImageDataIfNecessary()
             }
+        }
+    }
+    
+    private struct AutoSave {
+        static let fileName = "AutoSaved.emojiArt"
+        static var url: URL? {
+            // In iOS we always are going to be using this userDomainMask
+            // On the Mac we have other domains for files to be stored.
+            // This API for the FileManager, it's cross-platform.
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            return documentDirectory?.appendingPathComponent(fileName)
+        }
+    }
+    
+    private func autoSave() {
+        if let url = AutoSave.url {
+            save(to: url)
         }
     }
     
