@@ -25,7 +25,7 @@ extension EmojiArtModel {
         }
         
         enum CodingKeys: String, CodingKey {
-            case url
+            case url = "theURL"
             case imageData
         }
         
