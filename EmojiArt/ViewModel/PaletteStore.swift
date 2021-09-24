@@ -33,18 +33,18 @@ class PaletteStore: ObservableObject {
     }
     
     private func storeInUserDefaults() {
-        UserDefaults.standard.set(palettes.map { [String($0.id), $0.name, $0.emojis] }, forKey: userDefaultsKey)
+        //        UserDefaults.standard.set(palettes.map { [String($0.id), $0.name, $0.emojis] }, forKey: userDefaultsKey)
     }
     
     private func restoreFromUserDefaults() {
-        if let palettesAsPropertyList = UserDefaults.standard.array(forKey: userDefaultsKey) as? [[String]] {
-            for paletteAsArray in palettesAsPropertyList {
-                if paletteAsArray.count == 3, let id = Int(paletteAsArray[0]), !palettes.contains(where: { $0.id == id }) {
-                    let palette = Palette(id: id, name: paletteAsArray[1], emojis: paletteAsArray[2])
-                    palettes.append(palette)
-                }
-            }
-        }
+        //        if let palettesAsPropertyList = UserDefaults.standard.array(forKey: userDefaultsKey) as? [[String]] {
+        //            for paletteAsArray in palettesAsPropertyList {
+        //                if paletteAsArray.count == 3, let id = Int(paletteAsArray[0]), !palettes.contains(where: { $0.id == id }) {
+        //                    let palette = Palette(id: id, name: paletteAsArray[1], emojis: paletteAsArray[2])
+        //                    palettes.append(palette)
+        //                }
+        //            }
+        //        }
     }
     
     init(named name: String) {
