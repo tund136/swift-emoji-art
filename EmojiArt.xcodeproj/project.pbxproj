@@ -16,6 +16,7 @@
 		AD34B9AF26FB2E4100969E49 /* EmojiArtDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9AE26FB2E4100969E49 /* EmojiArtDocument.swift */; };
 		AD34B9B826FB3A5800969E49 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9B626FB3A5800969E49 /* UtilityExtensions.swift */; };
 		AD34B9B926FB3A5800969E49 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9B726FB3A5800969E49 /* UtilityViews.swift */; };
+		ADA6575626FDC6F600680839 /* PaletteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA6575526FDC6F600680839 /* PaletteStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AD34B9AE26FB2E4100969E49 /* EmojiArtDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiArtDocument.swift; sourceTree = "<group>"; };
 		AD34B9B626FB3A5800969E49 /* UtilityExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		AD34B9B726FB3A5800969E49 /* UtilityViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
+		ADA6575526FDC6F600680839 /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				AD34B9AE26FB2E4100969E49 /* EmojiArtDocument.swift */,
+				ADA6575526FDC6F600680839 /* PaletteStore.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD34B9B926FB3A5800969E49 /* UtilityViews.swift in Sources */,
+				ADA6575626FDC6F600680839 /* PaletteStore.swift in Sources */,
 				AD34B99E26FABA5500969E49 /* EmojiArtDocumentView.swift in Sources */,
 				AD34B99C26FABA5500969E49 /* EmojiArtApp.swift in Sources */,
 				AD34B9B826FB3A5800969E49 /* UtilityExtensions.swift in Sources */,
