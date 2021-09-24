@@ -18,6 +18,7 @@
 		AD34B9B926FB3A5800969E49 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34B9B726FB3A5800969E49 /* UtilityViews.swift */; };
 		ADA6575626FDC6F600680839 /* PaletteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA6575526FDC6F600680839 /* PaletteStore.swift */; };
 		ADA6575A26FE167E00680839 /* PaletteChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA6575926FE167E00680839 /* PaletteChooser.swift */; };
+		ADA6575C26FE23FD00680839 /* PaletteEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA6575B26FE23FD00680839 /* PaletteEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		AD34B9B726FB3A5800969E49 /* UtilityViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
 		ADA6575526FDC6F600680839 /* PaletteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteStore.swift; sourceTree = "<group>"; };
 		ADA6575926FE167E00680839 /* PaletteChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteChooser.swift; sourceTree = "<group>"; };
+		ADA6575B26FE23FD00680839 /* PaletteEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				AD34B99D26FABA5500969E49 /* EmojiArtDocumentView.swift */,
 				ADA6575926FE167E00680839 /* PaletteChooser.swift */,
+				ADA6575B26FE23FD00680839 /* PaletteEditor.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 			files = (
 				AD34B9B926FB3A5800969E49 /* UtilityViews.swift in Sources */,
 				ADA6575626FDC6F600680839 /* PaletteStore.swift in Sources */,
+				ADA6575C26FE23FD00680839 /* PaletteEditor.swift in Sources */,
 				AD34B99E26FABA5500969E49 /* EmojiArtDocumentView.swift in Sources */,
 				AD34B99C26FABA5500969E49 /* EmojiArtApp.swift in Sources */,
 				AD34B9B826FB3A5800969E49 /* UtilityExtensions.swift in Sources */,
