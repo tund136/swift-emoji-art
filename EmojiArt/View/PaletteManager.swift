@@ -11,6 +11,9 @@ struct PaletteManager: View {
     @EnvironmentObject var store: PaletteStore
     @Environment(\.colorScheme) var colorScheme
     
+    // It's a Binding, just like editMode is, but you don't actually usually create a little @State and bind to it.
+    @Environment(\.presentationMode) var presentationMode
+    
     @State private var editMode: EditMode = .inactive
     
     var body: some View {
@@ -37,7 +40,15 @@ struct PaletteManager: View {
             .navigationTitle("Manage Palettes")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                EditButton()
+                ToolbarItem { EditButton() }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if presentationMode.wrappedValue.isPresented,
+                       UIDevice.current.userInterfaceIdiom != .pad {
+                        Button("Close") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
             }
             .environment(\.editMode, $editMode)
         }
