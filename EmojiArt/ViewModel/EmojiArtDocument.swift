@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 class EmojiArtDocument: ObservableObject {
     // private(set) should be good enough here.
@@ -81,12 +82,23 @@ class EmojiArtDocument: ObservableObject {
         case failed(URL)
     }
     
+    private var backgroundImageFetchCancellable: AnyCancellable?
+    
     private func fetchBackgroundImageDataIfNecessary() {
         backgroundImage = nil
         switch emojiArt.background {
         case .url(let url):
             // fetch the url
             backgroundImageFetchStatus = .fetching
+            let session = URLSession.shared
+            let publisher = session.dataTaskPublisher(for: url)
+                .map { (data, urlResponse) in UIImage(data: data) }
+                .replaceError(with: nil)
+            
+            backgroundImageFetchCancellable = publisher
+                .assign(to: \EmojiArtDocument.backgroundImage, on: self)
+            
+            
             // This took a very long time
             // Something that for it to download
             // and meanwhile, our app was completely forzen. We couldn't try another one. We can't do anything.
@@ -94,9 +106,10 @@ class EmojiArtDocument: ObservableObject {
             
             // How are we going to make this thing multithreaded?
             // Use the quality of service: userInitiated because the user did initiate this download.
+            
             //            DispatchQueue.global(qos: .userInitiated).async {
             //                let imageData = try? Data(contentsOf: url) // There is a way to ignore the error
-            //                
+            //
             //                DispatchQueue.main.async { [weak self] in
             //                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
             //                        self?.backgroundImageFetchStatus = .idle
