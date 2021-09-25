@@ -94,30 +94,30 @@ class EmojiArtDocument: ObservableObject {
             
             // How are we going to make this thing multithreaded?
             // Use the quality of service: userInitiated because the user did initiate this download.
-            DispatchQueue.global(qos: .userInitiated).async {
-                let imageData = try? Data(contentsOf: url) // There is a way to ignore the error
-                
-                DispatchQueue.main.async { [weak self] in
-                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
-                        self?.backgroundImageFetchStatus = .idle
-                        if imageData != nil {
-                            // A purple error
-                            // This is changing the UI
-                            // And we never change the UI from a background thread.
-                            // This can only happen on the main thread.
-                            // This is a super important thing to understand.
-                            self?.backgroundImage = UIImage(data: imageData!) // Which we can force unwrap because I just checked to make sure it's not nil right there.
-                            // What about this self?
-                            // The reason for this is this is a closure
-                            // and it's a closure that's going to be put in memory
-                            // and held onto until this thing finishes running
-                        }
-                        if self?.backgroundImage == nil {
-                            self?.backgroundImageFetchStatus = .failed(url)
-                        }
-                    }
-                }
-            }
+            //            DispatchQueue.global(qos: .userInitiated).async {
+            //                let imageData = try? Data(contentsOf: url) // There is a way to ignore the error
+            //                
+            //                DispatchQueue.main.async { [weak self] in
+            //                    if self?.emojiArt.background == EmojiArtModel.Background.url(url) {
+            //                        self?.backgroundImageFetchStatus = .idle
+            //                        if imageData != nil {
+            //                            // A purple error
+            //                            // This is changing the UI
+            //                            // And we never change the UI from a background thread.
+            //                            // This can only happen on the main thread.
+            //                            // This is a super important thing to understand.
+            //                            self?.backgroundImage = UIImage(data: imageData!) // Which we can force unwrap because I just checked to make sure it's not nil right there.
+            //                            // What about this self?
+            //                            // The reason for this is this is a closure
+            //                            // and it's a closure that's going to be put in memory
+            //                            // and held onto until this thing finishes running
+            //                        }
+            //                        if self?.backgroundImage == nil {
+            //                            self?.backgroundImageFetchStatus = .failed(url)
+            //                        }
+            //                    }
+            //                }
+            //            }
             
         case .imageData(let data):
             backgroundImage = UIImage(data: data)
