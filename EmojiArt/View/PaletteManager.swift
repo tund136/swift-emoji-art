@@ -11,11 +11,16 @@ struct PaletteManager: View {
     @EnvironmentObject var store: PaletteStore
     
     var body: some View {
-        List {
-            ForEach(store.palettes) { palette in
-                VStack(alignment: .leading) {
-                    Text(palette.name)
-                    Text(palette.emojis)
+        // A NavigationView and a NavigationLink go together
+        NavigationView {
+            List {
+                ForEach(store.palettes) { palette in
+                    NavigationLink(destination: PaletteEditor(palette: $store.palettes[palette])) {
+                        VStack(alignment: .leading) {
+                            Text(palette.name)
+                            Text(palette.emojis)
+                        }
+                    }
                 }
             }
         }
