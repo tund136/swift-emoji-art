@@ -90,14 +90,19 @@ class EmojiArtDocument: ObservableObject {
         case .url(let url):
             // fetch the url
             backgroundImageFetchStatus = .fetching
+            backgroundImageFetchCancellable?.cancel()
             let session = URLSession.shared
             let publisher = session.dataTaskPublisher(for: url)
                 .map { (data, urlResponse) in UIImage(data: data) }
                 .replaceError(with: nil)
+                .receive(on: DispatchQueue.main)
             
             backgroundImageFetchCancellable = publisher
-                .assign(to: \EmojiArtDocument.backgroundImage, on: self)
-            
+            //                .assign(to: \EmojiArtDocument.backgroundImage, on: self)
+                .sink { [weak self] image in
+                    self?.backgroundImage = image
+                    self?.backgroundImageFetchStatus = (image != nil) ? .idle : .failed(url)
+                }
             
             // This took a very long time
             // Something that for it to download
