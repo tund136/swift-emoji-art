@@ -13,6 +13,7 @@ struct PaletteEditor: View {
         Form {
             TextField("Name", text: $palette.name)
         }
+        .frame(minWidth: 300, minHeight: 350)
     }
 }
 
