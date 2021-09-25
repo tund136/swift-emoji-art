@@ -24,6 +24,7 @@ struct PaletteManager: View {
                                 .font(editMode == .active ? .largeTitle : .caption)
                             Text(palette.emojis)
                         }
+                        .gesture(editMode == .active ? tap : nil)
                     }
                 }
                 .onDelete { indexSet in
@@ -40,6 +41,11 @@ struct PaletteManager: View {
             }
             .environment(\.editMode, $editMode)
         }
+    }
+    
+    var tap: some Gesture {
+        TapGesture()
+            .onEnded { }
     }
 }
 
