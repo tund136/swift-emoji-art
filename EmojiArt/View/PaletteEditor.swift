@@ -8,18 +8,13 @@
 import SwiftUI
 
 struct PaletteEditor: View {
-    @State private var palette: Palette = PaletteStore(named: "Test").palette(at: 2)
+    // A Binding cannot be private
+    // By definition, other Views have to be able to set this, so do not make these private
+    @Binding var palette: Palette
     var body: some View {
         Form {
             TextField("Name", text: $palette.name)
         }
         .frame(minWidth: 300, minHeight: 350)
-    }
-}
-
-struct PaletteEditor_Previews: PreviewProvider {
-    static var previews: some View {
-        PaletteEditor()
-            .previewLayout(.fixed(width: 300, height: 350))
     }
 }
