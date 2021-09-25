@@ -11,6 +11,8 @@ struct PaletteManager: View {
     @EnvironmentObject var store: PaletteStore
     @Environment(\.colorScheme) var colorScheme
     
+    @State private var editMode: EditMode = .inactive
+    
     var body: some View {
         // A NavigationView and a NavigationLink go together
         NavigationView {
@@ -19,7 +21,7 @@ struct PaletteManager: View {
                     NavigationLink(destination: PaletteEditor(palette: $store.palettes[palette])) {
                         VStack(alignment: .leading) {
                             Text(palette.name)
-                                .font(colorScheme == .dark ? .largeTitle : .caption)
+                                .font(editMode == .active ? .largeTitle : .caption)
                             Text(palette.emojis)
                         }
                     }
@@ -27,6 +29,10 @@ struct PaletteManager: View {
             }
             .navigationTitle("Manage Palettes")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                EditButton()
+            }
+            .environment(\.editMode, $editMode)
         }
     }
 }
