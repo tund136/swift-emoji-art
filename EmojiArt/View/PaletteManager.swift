@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct PaletteManager: View {
+    @EnvironmentObject var store: PaletteStore
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(store.palettes) { palette in
+                VStack(alignment: .leading) {
+                    Text(palette.name)
+                    Text(palette.emojis)
+                }
+            }
+        }
     }
 }
 
 struct PaletteManager_Previews: PreviewProvider {
     static var previews: some View {
         PaletteManager()
+            .environmentObject(PaletteStore(named: "Preview"))
     }
 }
