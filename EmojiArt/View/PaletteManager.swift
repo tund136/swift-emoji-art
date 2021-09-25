@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PaletteManager: View {
     @EnvironmentObject var store: PaletteStore
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         // A NavigationView and a NavigationLink go together
@@ -18,6 +19,7 @@ struct PaletteManager: View {
                     NavigationLink(destination: PaletteEditor(palette: $store.palettes[palette])) {
                         VStack(alignment: .leading) {
                             Text(palette.name)
+                                .font(colorScheme == .dark ? .largeTitle : .caption)
                             Text(palette.emojis)
                         }
                     }
