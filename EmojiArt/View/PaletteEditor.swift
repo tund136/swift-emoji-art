@@ -18,3 +18,10 @@ struct PaletteEditor: View {
         .frame(minWidth: 300, minHeight: 350)
     }
 }
+
+struct PaletteEditor_Previews: PreviewProvider {
+    static var previews: some View {
+        PaletteEditor(palette: .constant(PaletteStore(named: "Preview").palette(at: 1)))
+            .previewLayout(.fixed(width: 300, height: 350))
+    }
+}
