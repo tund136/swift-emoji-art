@@ -75,9 +75,10 @@ class EmojiArtDocument: ObservableObject {
     @Published var backgroundImage: UIImage?
     @Published var backgroundImageFetchStatus = BackgroundImageFetchStatus.idle
     
-    enum BackgroundImageFetchStatus {
+    enum BackgroundImageFetchStatus: Equatable {
         case idle
         case fetching
+        case failed(URL)
     }
     
     private func fetchBackgroundImageDataIfNecessary() {
@@ -110,6 +111,9 @@ class EmojiArtDocument: ObservableObject {
                             // The reason for this is this is a closure
                             // and it's a closure that's going to be put in memory
                             // and held onto until this thing finishes running
+                        }
+                        if self?.backgroundImage == nil {
+                            self?.backgroundImageFetchStatus = .failed(url)
                         }
                     }
                 }
