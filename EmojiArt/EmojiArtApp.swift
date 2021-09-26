@@ -19,8 +19,8 @@ struct EmojiArtApp: App {
     // On the iPhone, only have on top-level Scene
     // In iPad, not even realize what's going on there with Scenes.
     var body: some Scene {
-        WindowGroup {
-            EmojiArtDocumentView(document: document)
+        DocumentGroup(newDocument: { EmojiArtDocument() }) { config in
+            EmojiArtDocumentView(document: config.document)
                 .environmentObject(paletteStore)
         }
     }

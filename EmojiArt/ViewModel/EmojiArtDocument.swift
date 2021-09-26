@@ -7,8 +7,36 @@
 
 import SwiftUI
 import Combine
+import UniformTypeIdentifiers
 
-class EmojiArtDocument: ObservableObject {
+extension UTType {
+    static let emojiart = UTType(exportedAs: "com.tund.EmojiArt")
+}
+
+// ReferenceFileDocument
+// It inherits the ObservableObject protocol.
+class EmojiArtDocument: ReferenceFileDocument {
+    
+    static var readableContentTypes = [UTType.emojiart]
+    static var writableContentTypes = [UTType.emojiart]
+    
+    required init(configuration: ReadConfiguration) throws {
+        if let data = configuration.file.regularFileContents {
+            emojiArt = try EmojiArtModel(json: data)
+            fetchBackgroundImageDataIfNecessary()
+        } else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+    }
+    
+    func snapshot(contentType: UTType) throws -> Data {
+        try emojiArt.json()
+    }
+    
+    func fileWrapper(snapshot: Data, configuration: WriteConfiguration) throws -> FileWrapper {
+        return FileWrapper(regularFileWithContents: snapshot)
+    }
+    
     // private(set) should be good enough here.
     // People can access the emojis and look at the background
     @Published private(set) var emojiArt: EmojiArtModel {
