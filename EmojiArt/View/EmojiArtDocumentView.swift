@@ -10,6 +10,8 @@ import SwiftUI
 struct EmojiArtDocumentView: View {
     @ObservedObject var document: EmojiArtDocument
     
+    @Environment(\.undoManager) var undoManager
+    
     // If we make this an @ScaleMetric instead of just a let or a constant here, then it will scale.
     @ScaledMetric var defaultEmojiFontSize: CGFloat = 40
     
@@ -97,14 +99,14 @@ struct EmojiArtDocumentView: View {
             // Sometimes they wrap the image's URL in a bigger URL
             // So there is a well-known way to get it out
             // extension: imageURL
-            document.setBackground(.url(url.imageURL))
+            document.setBackground(.url(url.imageURL), undoManager: undoManager)
         }
         
         if !found {
             found = providers.loadObjects(ofType: UIImage.self) { image in
                 if let data = image.jpegData(compressionQuality: 1.0) {
                     autoZoom = true
-                    document.setBackground(.imageData(data))
+                    document.setBackground(.imageData(data), undoManager: undoManager)
                 }
             }
         }
@@ -115,7 +117,8 @@ struct EmojiArtDocumentView: View {
                     document.addEmoji(
                         String(emoji),
                         at: convertToEmojiCoordinates(location, in: geometry),
-                        size: defaultEmojiFontSize / zoomScale
+                        size: defaultEmojiFontSize / zoomScale,
+                        undoManager: undoManager
                     )
                 }
             }
