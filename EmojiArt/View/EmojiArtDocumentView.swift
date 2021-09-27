@@ -76,21 +76,21 @@ struct EmojiArtDocumentView: View {
                     zoomToFit(image, in: geometry.size)
                 }
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .bottomBar) {
-                    AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
-                        pasteBackground()
-                    }
-                    if let undoManager = undoManager {
-                        if undoManager.canUndo {
-                            AnimatedActionButton(title: undoManager.undoActionName, systemImage: "arrow.uturn.backward") {
-                                undoManager.undo()
-                            }
+            // compactableToolbar do the same thing as toolbar
+            // which takes this ViewBuilder and puts each of these buttons in the toolbar, except that if we don't have enough space
+            .compactableToolbar {
+                AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
+                    pasteBackground()
+                }
+                if let undoManager = undoManager {
+                    if undoManager.canUndo {
+                        AnimatedActionButton(title: undoManager.undoActionName, systemImage: "arrow.uturn.backward") {
+                            undoManager.undo()
                         }
-                        if undoManager.canRedo {
-                            AnimatedActionButton(title: undoManager.redoActionName, systemImage: "arrow.uturn.forward") {
-                                undoManager.redo()
-                            }
+                    }
+                    if undoManager.canRedo {
+                        AnimatedActionButton(title: undoManager.redoActionName, systemImage: "arrow.uturn.forward") {
+                            undoManager.redo()
                         }
                     }
                 }

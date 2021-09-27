@@ -148,3 +148,33 @@ extension View {
         }
     }
 }
+
+extension View {
+    func compactableToolbar<Content>(@ViewBuilder content: () -> Content) -> some View where Content: View {
+        self.toolbar {
+            content().modifier(CompactableIntoContextMenu())
+        }
+    }
+}
+
+struct CompactableIntoContextMenu: ViewModifier {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    var compact: Bool { horizontalSizeClass == .compact }
+    
+    func body(content: Content) -> some View {
+        if compact {
+            // Return a single button with a context menu containing content
+            Button {
+                
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+            .contextMenu {
+                content
+            }
+        } else {
+            content
+        }
+    }
+}
