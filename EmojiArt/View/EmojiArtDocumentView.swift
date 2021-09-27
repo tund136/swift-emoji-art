@@ -77,12 +77,14 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .toolbar {
-                UndoButton(
-                    undo: undoManager?.optionalUndoMenuItemTitle,
-                    redo: undoManager?.optionalRedoMenuItemTitle
-                )
-                AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
-                    pasteBackground()
+                ToolbarItemGroup(placement: .bottomBar) {
+                    UndoButton(
+                        undo: undoManager?.optionalUndoMenuItemTitle,
+                        redo: undoManager?.optionalRedoMenuItemTitle
+                    )
+                    AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
+                        pasteBackground()
+                    }
                 }
             }
         }
