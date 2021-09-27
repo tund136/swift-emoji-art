@@ -25,12 +25,11 @@ struct EmojiArtDocumentView: View {
     var documentBody: some View {
         GeometryReader { geometry in
             ZStack {
-                Color.white.overlay(
-                    // The extension: UtilityViews - OptionalImage
-                    OptionalImage(uiImage: document.backgroundImage)
-                        .scaleEffect(zoomScale)
-                        .position(convertFromEmojiCoordinates((0, 0), in: geometry))
-                )
+                Color.white
+                // The extension: UtilityViews - OptionalImage
+                OptionalImage(uiImage: document.backgroundImage)
+                    .scaleEffect(zoomScale)
+                    .position(convertFromEmojiCoordinates((0, 0), in: geometry))
                     .gesture(doubleTapToZoom(in: geometry.size))
                 
                 if document.backgroundImageFetchStatus == .fetching {
