@@ -107,7 +107,11 @@ struct EmojiArtDocumentView: View {
     }
     
     private func handlePickedBackgroundImage(_ image: UIImage?) {
-        
+        autoZoom = true
+        if let imageData = image?.jpegData(compressionQuality: 1.0) {
+            document.setBackground(.imageData(imageData), undoManager: undoManager)
+        }
+        backgroundPicker = nil
     }
     
     @State private var backgroundPicker: BackgroundPickerType?
@@ -119,6 +123,7 @@ struct EmojiArtDocumentView: View {
     }
     
     private func pasteBackground() {
+        autoZoom = true
         if let imageData = UIPasteboard.general.image?.jpegData(compressionQuality: 1.0) {
             document.setBackground(.imageData(imageData), undoManager: undoManager)
         } else if let url = UIPasteboard.general.url?.imageURL {
