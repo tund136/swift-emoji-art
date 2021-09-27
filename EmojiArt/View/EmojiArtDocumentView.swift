@@ -78,12 +78,20 @@ struct EmojiArtDocumentView: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .bottomBar) {
-                    UndoButton(
-                        undo: undoManager?.optionalUndoMenuItemTitle,
-                        redo: undoManager?.optionalRedoMenuItemTitle
-                    )
                     AnimatedActionButton(title: "Paste Background", systemImage: "doc.on.clipboard") {
                         pasteBackground()
+                    }
+                    if let undoManager = undoManager {
+                        if undoManager.canUndo {
+                            AnimatedActionButton(title: undoManager.undoActionName, systemImage: "arrow.uturn.backward") {
+                                undoManager.undo()
+                            }
+                        }
+                        if undoManager.canRedo {
+                            AnimatedActionButton(title: undoManager.redoActionName, systemImage: "arrow.uturn.forward") {
+                                undoManager.redo()
+                            }
+                        }
                     }
                 }
             }
