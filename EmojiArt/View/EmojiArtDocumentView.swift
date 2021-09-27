@@ -99,7 +99,16 @@ struct EmojiArtDocumentView: View {
     }
     
     private func pasteBackground() {
-        
+        if let imageData = UIPasteboard.general.image?.jpegData(compressionQuality: 1.0) {
+            document.setBackground(.imageData(imageData), undoManager: undoManager)
+        } else if let url = UIPasteboard.general.url?.imageURL {
+            document.setBackground(.url(url), undoManager: undoManager)
+        } else {
+            alertToShow = IdentifiableAlert (
+                title: "Past Background",
+                message: "There is no image currently on the paste board."
+            )
+        }
     }
     
     @State private var autoZoom = false
